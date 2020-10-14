@@ -53,7 +53,7 @@ const Auth = () => {
           value={password}
           onChange={onChange}
         />
-        <input type="submit" value="Log In" />
+        <input type="submit" value={newAccount ? "Create Account" : "Log In"} />
       </form>
       <span onClick={toggleAccount}>
         {newAccount ? "Log in" : "Create Account"}
