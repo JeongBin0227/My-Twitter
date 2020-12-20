@@ -15,8 +15,12 @@ const Nweet = ({newetObj, isOwner})=> {
     }
 
     const toggleEditing = () => setEditing((prev) => !prev)
-    const onSubmit = (event) => {
+    const onSubmit = async(event) => {
         event.preventDefaulet()
+        await dbService.doc(`nweests/${newetObj.id}`).update({
+            text: newNweet,
+        })
+        setEditing(false)
     }
     return(
         <div>
