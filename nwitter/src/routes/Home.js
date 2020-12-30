@@ -26,6 +26,7 @@ const Home = ({ userObj }) => {
         setNweets(nweetArray)
       })
   },[])
+
   const onSubmit = async (event) => {
     event.preventDefault()
     let attachmentUrl = ""
@@ -62,6 +63,7 @@ const Home = ({ userObj }) => {
     reader.readAsDataURL(theFile)
   }
   const onClearAttachment = () => setAttachment(null)
+
   return (
     <div>
       <form onSubmit={onSubmit}>
