@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { auth } from 'firebase'
 import { authService, dbService } from 'fbase'
 import { useHistory } from 'react-router-dom'
 
-const Profile = () => {
+const Profile = ({ userObj }) => {
   const history = useHistory()
+  const [newDisplayName, setNewDisplayName] = useState(userObj.displayName)
 
   const onLogOutClick = () => {
     authService.signOut()
@@ -19,11 +20,28 @@ const Profile = () => {
       .get()
   }
 
+  const onSubmit = (event) => {
+    event.preventDefault()
+    if (userObj.displayName !== newDisplayName) {
+      const response = await userObj.updateProfile({
+        displayName : newDisplayName
+      })
+    }
+  }
   useEffect(() => {
     getMyNweets()
   }, [])
   return (
     <>
+      <form onSubmit={onSubmit}>
+        <input
+          onChanege={onChanege}
+          type="text"
+          placeholder="Display Name"
+          value={newDisplayName}
+        />
+        <input type="submit" value="Update Profile" />
+      </form>
       <button onClick={onLogOutClick}>Log Out</button>
     </>
   )
