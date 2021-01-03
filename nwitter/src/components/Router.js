@@ -5,7 +5,7 @@ import Auth from '../routes/Auth'
 import Navigation from './Navigation'
 import Profile from 'routes/Profile'
 
-const AppRouter = ({ isLoggedIn, userObj }) => {
+const AppRouter = ({ refreshUser, isLoggedIn, userObj }) => {
   return (
     <Router>
       {isLoggedIn && <Navigation userObj={userObj} />}
