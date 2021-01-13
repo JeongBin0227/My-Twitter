@@ -26,6 +26,7 @@ const Profile = ({ userObj }) => {
       const response = await userObj.updateProfile({
         displayName : newDisplayName
       })
+      refreshUser()
     }
   }
   useEffect(() => {
