@@ -1,40 +1,60 @@
+import { authService } from "fbase";
 import React, { useState } from "react";
 
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [newAccount, setNewAccount] = useState(true);
   const onChange = (event) => {
+    console.log(event);
     const {
       target: { name, value },
     } = event;
+    console.log(name);
+    console.log(value);
     if (name === "email") {
       setEmail(value);
     } else if (name === "password") {
       setPassword(value);
     }
   };
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
-    console.log(event.target.name);
+    try {
+      let data;
+      if (newAccount) {
+        data = await authService.createUserWithEmailAndPassword(
+          email,
+          password
+        );
+      } else {
+        data = await authService.signInWithEmailAndPassword(email, password);
+      }
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div>
       <form onSubmit={onSubmit}>
         <input
-          type="text"
+          name="email"
+          type="email"
           value={email}
           placeholde="Email"
           required
           onChange={onChange}
         />
         <input
-          type="text"
+          name="password"
+          type="password"
           value={password}
           placeholde="Password"
           required
           onChange={onChange}
         />
-        <input type="text" value="Log In" />
+        <input type="submit" value={newAccount ? "Create Account" : "Log In"} />
       </form>
       <div>
         <button>Continue with Google</button>
