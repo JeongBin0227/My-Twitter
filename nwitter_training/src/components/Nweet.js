@@ -26,6 +26,16 @@ const Nweet = ({ nweetObj, isOwner }) => {
     } = e;
     setNewNweet(value);
   };
+  const onFileChange = (e) => {
+    const {
+      target: { files },
+    } = e;
+
+    const theFile = files[0];
+    const reader = new FileReader();
+    reader.onloadend = (finishedEvent) => {};
+    reader.readAsDataURL(theFile);
+  };
   return (
     <div>
       {editing ? (
@@ -38,7 +48,11 @@ const Nweet = ({ nweetObj, isOwner }) => {
               required
               onChange={onChange}
             ></input>
-            <input type="submit" value="Update Nweet"></input>
+            <input
+              type="submit"
+              value="Update Nweet"
+              onChange={onFileChange}
+            ></input>
           </form>
           <button onClick={toggleEditing}>Cancle</button>
         </>
